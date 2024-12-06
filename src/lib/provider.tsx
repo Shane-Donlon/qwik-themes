@@ -120,6 +120,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
         if (resolved === "light" || resolved === "dark") {
           document.documentElement.style.colorScheme = resolved;
           applyTheme(resolved);
+          localStorage.setItem(storageKey, resolved);
         }
       };
 
