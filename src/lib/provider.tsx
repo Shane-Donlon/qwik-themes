@@ -88,6 +88,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
           );
           if (theme === "light" || theme === "dark") {
             document.documentElement.style.colorScheme = theme;
+            applyTheme(theme);
           }
           // ? see issue #3 may need to add an else in here for "brutalist" theme etc...
         } catch (e) {
@@ -116,11 +117,13 @@ export const ThemeProvider = component$<ThemeProviderProps>(
         if (themeSig.value === "system" && enableSystem && !forcedTheme) {
           applyTheme("system");
         }
+        if (resolved === "light" || resolved === "dark") {
+          document.documentElement.style.colorScheme = resolved;
+          applyTheme(resolved);
+        }
       };
 
       media.addEventListener("change", handleMediaQuery);
-
-      handleMediaQuery(media);
 
       cleanup(() => media.removeEventListener("change", handleMediaQuery));
     });
