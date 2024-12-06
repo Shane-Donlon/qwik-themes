@@ -86,6 +86,10 @@ export const ThemeProvider = component$<ThemeProviderProps>(
             storageKey,
             Array.isArray(theme) ? theme.join(" ") : (theme as string)
           );
+          if (theme === "light" || theme === "dark") {
+            document.documentElement.style.colorScheme = theme;
+          }
+          // ? see issue #3 may need to add an else in here for "brutalist" theme etc...
         } catch (e) {
           // Unsupported
         }
