@@ -1,7 +1,7 @@
 {
-  "name": "qwik-themes",
-  "version": "0.3.0",
-  "description": "Create a reusable Qwik component library",
+  "name": "qwik-themes-testing-donlos",
+  "version": "0.1.0",
+  "description": "Qwik Themes ",
   "main": "./lib/index.qwik.mjs",
   "qwik": "./lib/index.qwik.mjs",
   "types": "./lib-types/index.d.ts",
@@ -49,8 +49,20 @@
     "vite-tsconfig-paths": "5.0.1",
     "@biomejs/biome": "^1.8.3"
   },
-  "dependencies": {},
   "trustedDependencies": [
     "@biomejs/biome"
-  ]
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shane-Donlon/qwik-themes.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Shane-Donlon/qwik-themes/issues"
+  },
+  "homepage": "https://github.com/Shane-Donlon/qwik-themes#readme"
 }
