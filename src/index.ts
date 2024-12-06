@@ -1,1 +1,3 @@
-export { useTheme, ThemeProvider } from "./lib/provider"
+export { ThemeProvider, useTheme } from "./lib/provider";
+export { ThemeChanger } from "./lib/toggler/themeSwitch";
+
