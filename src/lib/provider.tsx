@@ -103,7 +103,6 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     });
 
     useVisibleTask$(({ cleanup }) => {
-      themeStore.setTheme(themeSig.value);
       const media = window.matchMedia("(prefers-color-scheme: dark)");
 
       const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
