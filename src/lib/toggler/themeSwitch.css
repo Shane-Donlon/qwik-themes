@@ -14,6 +14,7 @@
 #qwik-theme-toggle-light-icon {
   background: none;
   border: none;
+  cursor: pointer;
   svg {
     /* this comes from tailwind size 6 */
     height: 24px;
