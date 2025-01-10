@@ -112,6 +112,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     useOnWindow(
       "load",
       $((event) => {
+        console.log("use on window load")
         const media = window.matchMedia("(prefers-color-scheme: dark)");
         const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
           const resolved = getSystemTheme(e);
@@ -136,6 +137,7 @@ export const ThemeProvider = component$<ThemeProviderProps>(
     useOnWindow(
       "storage",
       $((e) => {
+        console.log("use on window storage")
         const handleStorage = (e: StorageEvent) => {
           if (e.key !== storageKey) {
             return;

@@ -1,6 +1,6 @@
 {
   "name": "qwik-themes-testing-donlos-version-1",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Qwik Themes Testing Donlos Version 1 my personal project",
   "main": "./lib/index.qwik.mjs",
   "qwik": "./lib/index.qwik.mjs",
