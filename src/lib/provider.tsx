@@ -14,7 +14,7 @@ import {
 import { disableAnimation, getSystemTheme, getTheme } from "./helper";
 import { ThemeScript } from "./theme-script";
 import type { Theme, ThemeProviderProps, UseThemeProps } from "./types";
-const a = ""
+
 
 const ThemeContext = createContextId<UseThemeProps>("theme-context");
 
