@@ -6,14 +6,16 @@ import {
   createContextId,
   useContext,
   useContextProvider,
+  useOnWindow,
   useSignal,
   useStore,
   useTask$,
-  useVisibleTask$,
+  useVisibleTask$
 } from "@builder.io/qwik";
 import { disableAnimation, getSystemTheme, getTheme } from "./helper";
 import { ThemeScript } from "./theme-script";
 import type { Theme, ThemeProviderProps, UseThemeProps } from "./types";
+const a = ""
 
 const ThemeContext = createContextId<UseThemeProps>("theme-context");
 
@@ -107,27 +109,29 @@ export const ThemeProvider = component$<ThemeProviderProps>(
         | undefined,
     });
 
-    useVisibleTask$(({ cleanup }) => {
-      const media = window.matchMedia("(prefers-color-scheme: dark)");
+    // changes system theme based on user's system theme
+    useOnWindow(
+      "load",
+      $((event) => {
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
+          const resolved = getSystemTheme(e);
+          resolvedThemeStore.setResolvedTheme(resolved);
 
-      const handleMediaQuery = (e: MediaQueryListEvent | MediaQueryList) => {
-        const resolved = getSystemTheme(e);
-        resolvedThemeStore.setResolvedTheme(resolved);
+          if (themeSig.value === "system" && enableSystem && !forcedTheme) {
+            applyTheme("system");
+          }
+          if (resolved === "light" || resolved === "dark") {
+            document.documentElement.style.colorScheme = resolved;
+            applyTheme(resolved);
+            localStorage.setItem(storageKey, resolved);
+          }
+        };
 
-        if (themeSig.value === "system" && enableSystem && !forcedTheme) {
-          applyTheme("system");
-        }
-        if (resolved === "light" || resolved === "dark") {
-          document.documentElement.style.colorScheme = resolved;
-          applyTheme(resolved);
-          localStorage.setItem(storageKey, resolved);
-        }
-      };
+        media.addEventListener("change", handleMediaQuery);
+      })
+    );
 
-      media.addEventListener("change", handleMediaQuery);
-
-      cleanup(() => media.removeEventListener("change", handleMediaQuery));
-    });
 
     // localStorage event handling
     useVisibleTask$(({ cleanup }) => {
