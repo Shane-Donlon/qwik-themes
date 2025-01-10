@@ -9,8 +9,7 @@ import {
   useOnWindow,
   useSignal,
   useStore,
-  useTask$,
-  useVisibleTask$
+  useTask$
 } from "@builder.io/qwik";
 import { disableAnimation, getSystemTheme, getTheme } from "./helper";
 import { ThemeScript } from "./theme-script";
@@ -134,20 +133,22 @@ export const ThemeProvider = component$<ThemeProviderProps>(
 
 
     // localStorage event handling
-    useVisibleTask$(({ cleanup }) => {
-      const handleStorage = (e: StorageEvent) => {
-        if (e.key !== storageKey) {
-          return;
-        }
+    useOnWindow(
+      "storage",
+      $((e) => {
+        const handleStorage = (e: StorageEvent) => {
+          if (e.key !== storageKey) {
+            return;
+          }
 
-        // If default theme set, use it if localstorage === null (happens on local storage manual deletion)
-        const theme = e.newValue || defaultTheme;
-        themeStore.setTheme(theme);
-      };
+          // If default theme set, use it if localstorage === null (happens on local storage manual deletion)
+          const theme = e.newValue || defaultTheme;
+          themeStore.setTheme(theme);
+        };
+        handleStorage(e);
+      })
+    );
 
-      window.addEventListener("storage", handleStorage);
-      cleanup(() => window.removeEventListener("storage", handleStorage));
-    });
 
     // Whenever theme or forcedTheme changes, apply it
     useTask$(({ track }) => {
